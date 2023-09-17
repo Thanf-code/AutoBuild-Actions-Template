@@ -238,47 +238,47 @@ EOF
 				fi
 			fi
 		done ; unset i
-#		Kconfig_Path=${CustomFiles}/Kconfig
-#		Tree=${WORK}/target/linux
-#		cd ${Kconfig_Path}
-#		for i in $(du -a | awk '{print $2}' | busybox sed -r 's/.\//\1/' | grep -wv '^.' | sort | uniq)
-#		do
-#			if [[ -d $i && $(ls -1 $i 2> /dev/null) ]]
-#			then
-#				:
-#			elif [[ -e $i ]]
-#			then
-#				_Kconfig=$(dirname $i)
-#				__Kconfig=$(basename $i)
-#				ECHO " - Found Kconfig_file: ${__Kconfig} at ${_Kconfig}"
-#				if [[ -e ${Tree}/$i && ${__Kconfig} != config-generic ]]
-#				then
-#					ECHO " -- Found Tree: ${Tree}/$i, refreshing ${Tree}/$i ..."
-#					echo >> ${Tree}/$i
-#					if [[ $? == 0 ]]
-#					then
-#						cat $i >> ${Tree}/$i
-#						ECHO " --- Done"
-#					else
-#						ECHO " --- Failed to write new content ..."
-#					fi
-#				elif [[ ${__Kconfig} == config-generic ]]
-#				then
-#					for j in $(ls -1 ${Tree}/${_Kconfig} | egrep "config-[0-9]+")
-#					do
-#						ECHO " -- Generic Kconfig_file, refreshing ${Tree}/${_Kconfig}/$j ..."
-#						echo >> ${Tree}/${_Kconfig}/$j
-#						if [[ $? == 0 ]]
-#						then
-#							cat $i >> ${Tree}/${_Kconfig}/$j
-#							ECHO " --- Done"
-#						else
-#							ECHO " --- Failed to write new content ..."
-#						fi
-#					done
-#				fi
-#			fi
-#		done ; unset i
+		Kconfig_Path=${CustomFiles}/Kconfig
+		Tree=${WORK}/target/linux
+		cd ${Kconfig_Path}
+		for i in $(du -a | awk '{print $2}' | busybox sed -r 's/.\//\1/' | grep -wv '^.' | sort | uniq)
+		do
+			if [[ -d $i && $(ls -1 $i 2> /dev/null) ]]
+			then
+				:
+			elif [[ -e $i ]]
+			then
+				_Kconfig=$(dirname $i)
+				__Kconfig=$(basename $i)
+				ECHO " - Found Kconfig_file: ${__Kconfig} at ${_Kconfig}"
+				if [[ -e ${Tree}/$i && ${__Kconfig} != config-generic ]]
+				then
+					ECHO " -- Found Tree: ${Tree}/$i, refreshing ${Tree}/$i ..."
+					echo >> ${Tree}/$i
+					if [[ $? == 0 ]]
+					then
+						cat $i >> ${Tree}/$i
+						ECHO " --- Done"
+					else
+						ECHO " --- Failed to write new content ..."
+					fi
+				elif [[ ${__Kconfig} == config-generic ]]
+				then
+					for j in $(ls -1 ${Tree}/${_Kconfig} | egrep "config-[0-9]+")
+					do
+						ECHO " -- Generic Kconfig_file, refreshing ${Tree}/${_Kconfig}/$j ..."
+						echo >> ${Tree}/${_Kconfig}/$j
+						if [[ $? == 0 ]]
+						then
+							cat $i >> ${Tree}/${_Kconfig}/$j
+							ECHO " --- Done"
+						else
+							ECHO " --- Failed to write new content ..."
+						fi
+					done
+				fi
+			fi
+		done ; unset i
 	fi
 	CD ${WORK}
 	ECHO "[Firmware_Diy_Other] Done"
